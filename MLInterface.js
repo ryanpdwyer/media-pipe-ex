@@ -133,6 +133,11 @@ class MLModel {
             <input type="file" accept=".json" id="dataUpload">
             <span class="data-status">No data loaded</span>
           </div>
+          <div class="debug-section">
+            <label>Debug Mode:
+            <input type="checkbox" class="debug-checkbox">
+            </label>
+          </div>
           
           <div class="parameters-section">
             <h4>Training Parameters</h4>
@@ -178,6 +183,7 @@ class MLModel {
       this.saveButton = this.container.querySelector('.save-button');
       this.loadButton = this.container.querySelector('.load-button');
       this.modelUpload = this.container.querySelector('#modelUpload');
+      this.debugCheckbox = this.container.querySelector('.debug-checkbox');
 
         // Update file input to accept only .model.json files
         const modelUpload = this.container.querySelector('.load-button');
@@ -290,7 +296,8 @@ class MLModel {
       // Create and configure model
       this.model = new ML5NeuralNetwork({
         inputSize: 21 * 3, // 21 landmarks with x,y,z coordinates
-        outputSize: Object.keys(this.gestureData).length
+        outputSize: Object.keys(this.gestureData).length,
+        debug: this.debugCheckbox.checked
       });
   
       try {
